@@ -8,7 +8,9 @@ Key Technologies:
     React.js
     Next.js
     JavaScript/TypeScript
-    HTML/CSS
+    HTML
+    CSS (SASS)
+    Bootstrap
 
     Project Structure:
 
