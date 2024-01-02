@@ -10,7 +10,7 @@ Key Technologies:
     JavaScript/TypeScript
     HTML
     CSS (SASS)
-    Bootstrap
+    Tailwind
 
     Project Structure:
 
