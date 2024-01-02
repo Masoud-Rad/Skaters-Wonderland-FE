@@ -11,6 +11,7 @@ Key Technologies:
     HTML
     CSS (SASS)
     Tailwind
+    daisyUI
 
     Project Structure:
 
@@ -21,10 +22,30 @@ Key Technologies:
         utils/: Utility functions and helpers.
         ... [Other directories as needed]
 
+
+
 Getting Started:
 
     Clone the repository: git clone https://github.com/Masoud-Rad/Skaters-Wonderland-FE.git
     Install dependencies: npm install
+
+        Installing dependencies:
+        - react
+        - react-dom
+        - next
+
+        Installing devDependencies:
+        - typescript
+        - @types/node
+        - @types/react
+        - @types/react-dom
+        - autoprefixer
+        - postcss
+        - tailwindcss
+        - eslint
+        - eslint-config-next
+
+        
     Run the development server: npm run dev
     Open http://localhost:3000 in your browser.
 
