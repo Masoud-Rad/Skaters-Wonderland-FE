@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+
 //**** landsType
 interface LandSample {
     land_id: number;
@@ -27,6 +28,7 @@ interface LandSample {
 interface LandResult {
     lands: LandSample[];
 }
+
 const LandsPage =  async () => {
 
    const res: Response = await fetch(`https://skaters-wonderland-be.onrender.com/api/lands`)
