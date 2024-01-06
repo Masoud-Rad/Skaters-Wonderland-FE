@@ -39,7 +39,9 @@ const LandsPage =  async () => {
     <h1>Skater Wonderlands</h1>
     <ul>
         {
-            lands.map(land=><li key={land.land_id}><Link href=''>{land.landname}</Link></li>)
+            lands.map(land => (
+              <li key={land.land_id}><Link href={`/lands/single-land?land_id=${land.land_id}`}>{land.landname}</Link></li>)
+         ) 
         }
     </ul>
     
