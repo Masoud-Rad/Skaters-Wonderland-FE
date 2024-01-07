@@ -46,9 +46,9 @@ const {land}: LandResult = await res.json();
 <>
 {
     Object.keys(land).map((key)=>{
-        return <div key={land.land_id}>
+        return <div className=' m-2' key={land.land_id}>
                     <label>{key} :</label>
-                    <h1>{land[key as keyof LandSample]}</h1>
+                    <h1 className='mt-1 bg-sky-900 text-xl text-white font-light'>{land[key as keyof LandSample]}</h1>
                 </div>
     })
 }

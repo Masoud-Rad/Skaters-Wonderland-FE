@@ -36,11 +36,11 @@ const LandsPage =  async () => {
    
   return (
     <>
-    <h1>Skater Wonderlands</h1>
+    <h1 className="text-3xl font-bold underline text-center mb-8">Skater Wonderlands</h1>
     <ul>
         {
             lands.map(land => (
-              <li key={land.land_id}><Link href={`/lands/single-land?land_id=${land.land_id}`}>{land.landname}</Link></li>)
+              <li className='m-1 p-1 bg-gray-400 hover:bg-slate-500' key={land.land_id}><Link href={`/lands/singleLand?land_id=${land.land_id}`}>{land.landname}</Link></li>)
          ) 
         }
     </ul>
