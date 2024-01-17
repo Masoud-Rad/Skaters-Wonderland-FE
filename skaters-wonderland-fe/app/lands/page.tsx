@@ -40,7 +40,7 @@ const LandsPage =  async () => {
     <ul>
         {
             lands.map(land => (
-              <li className='m-1 p-1 bg-gray-400 hover:bg-slate-500' key={land.land_id}><Link href={`/lands/singleLand?land_id=${land.land_id}`}>{land.landname}</Link></li>)
+              <li className='m-1 p-1 bg-gray-400 hover:bg-slate-500' key={land.land_id}><Link href={`/lands/${land.land_id}`}>{land.landname}</Link></li>)
          ) 
         }
     </ul>
