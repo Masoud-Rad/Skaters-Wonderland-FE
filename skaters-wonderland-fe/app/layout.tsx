@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="bumblebee" className="p-5">
+    <html lang="en" data-theme="bumblebee" className="p-5 w-screen min-h-screen">
       <body className={inter.className}> 
         <Header/>
         {children}</body>
