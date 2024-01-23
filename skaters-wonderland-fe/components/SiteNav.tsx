@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 import { IoHome } from "react-icons/io5";
-import { IoIosArrowDown } from "react-icons/io";
 import { MdCall } from "react-icons/md";
 import { TiInfo } from "react-icons/ti";
 
@@ -11,19 +10,20 @@ const SiteNav = () => {
 
 
   return (
-    <nav className='flex'>
-        <ul className=' flex gap-x-5 text-[14px] ml-4'>
+    <nav className='flex '>
+        <ul className=' grid lg:grid-cols-6 gap-3 text-[14px] ml-4'>
             <li className='flex mr-8 items-center'>
                 <IoHome />
-                <Link href={""} className='text-zinc-600 ml-2'>Home</Link>
+                <Link href={"/"} className='text-zinc-600 ml-2'>Home</Link>
             </li>
             <li className='flex mr-8 items-center'>
-                <Link href={""}>nav2</Link>
-                <IoIosArrowDown />
+                <Link href={""}>Woderlands</Link>
             </li>
             <li className='flex mr-8 items-center'>
-                <Link href={""}>nav3</Link>
-                <IoIosArrowDown />
+                <Link href={""}>Personal Trainers</Link>
+            </li>
+            <li className='flex mr-8 items-center'>
+                <Link href={""}>Shoping</Link>
             </li>
             <li className='flex mr-8 items-center'>
                 <MdCall />
@@ -31,7 +31,7 @@ const SiteNav = () => {
             </li>
             <li className='flex mr-8 items-center'>
                 <TiInfo />
-                <Link href={""}>About us</Link>
+                <Link href={"/about"}>About us</Link>
             </li>
         </ul>
     </nav>
