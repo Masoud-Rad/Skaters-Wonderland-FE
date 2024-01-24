@@ -29,19 +29,19 @@ interface LandSample {
 interface LandResult {
     lands: LandSample[];
 }
-
-const LandsPage =  async () => {
-
-   const res: Response = await fetch(`https://skaters-wonderland-be.onrender.com/api/lands`)
-   const {lands}: LandResult = await res.json();
-   
+const PopularLands = async () => {
+    const res: Response = await fetch(`https://skaters-wonderland-be.onrender.com/api/lands/?sort_by=vote&order_by=DESC`)
+    const {lands}: LandResult = await res.json();
   return (
     <>
-    <h1 className="text-3xl font-bold underline text-center mb-8">Skater Wonderlands</h1>
-    <ul>
+    <ul className="flex ">
         {
             lands.map(land => (
-              <li className='m-1 p-1 bg-gray-400 hover:bg-slate-500' key={land.land_id}><Link href={`/lands/${land.land_id}`}>{land.landname}</Link></li>)
+              <li className='m-1 p-1 bg-gray-50 hover:bg-slate-100' key={land.land_id} >
+                <Link href={`/lands/${land.land_id}`}>{land.landname}</Link>
+                <img src={land.land_img_url} width={500} height={500}/>
+                <span>{land.city}</span>
+              </li>)
          ) 
         }
     </ul>
@@ -50,4 +50,4 @@ const LandsPage =  async () => {
   )
 }
 
-export default LandsPage
+export default PopularLands
