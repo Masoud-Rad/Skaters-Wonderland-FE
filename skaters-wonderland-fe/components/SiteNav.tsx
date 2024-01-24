@@ -1,9 +1,12 @@
+'use client';
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import React from 'react'
 import { IoHome } from "react-icons/io5";
 import { MdCall } from "react-icons/md";
 import { TiInfo } from "react-icons/ti";
+
+import { usePathname } from 'next/navigation'
+import clsx from 'clsx';
 
 const SiteNav = () => {
     const pathname = usePathname
@@ -12,24 +15,29 @@ const SiteNav = () => {
   return (
     <nav className='flex '>
         <ul className=' grid lg:grid-cols-6 gap-3 text-[14px] ml-4'>
-            <li className='flex mr-8 items-center'>
+            <li key= "home" className='flex mr-8 items-center'>
                 <IoHome />
-                <Link href={"/"} className='text-zinc-600 ml-2'>Home</Link>
+                <Link href={"/"} className={clsx(
+              'flex items-center text-sm font-medium ml-2 hover:bg-sky-100 hover:text-blue-600 ',
+              {
+                ' text-blue-600': pathname() === '/',
+              },
+            )}>Home</Link>
             </li>
-            <li className='flex mr-8 items-center'>
-                <Link href={""}>Woderlands</Link>
+            <li key= "Woderlands" className={clsx('flex mr-8 items-center  hover:text-blue-600',{' text-blue-600': pathname() === "/lands",},)}>
+                <Link href={"/lands"}>Woderlands</Link>
             </li>
-            <li className='flex mr-8 items-center'>
+            <li key= "PT" className={clsx('flex mr-8 items-center  hover:text-blue-600',{' text-blue-600': pathname() === "",},)}>
                 <Link href={""}>Personal Trainers</Link>
             </li>
-            <li className='flex mr-8 items-center'>
+            <li key= "Shoping" className={clsx('flex mr-8 items-center  hover:text-blue-600',{' text-blue-600': pathname() === "",},)}>
                 <Link href={""}>Shoping</Link>
             </li>
-            <li className='flex mr-8 items-center'>
+            <li key= "Contact" className={clsx('flex mr-8 items-center  hover:text-blue-600',{' text-blue-600': pathname() === "",},)}>
                 <MdCall />
                 <Link href={""}>Contact us</Link>
             </li>
-            <li className='flex mr-8 items-center'>
+            <li key= "about" className={clsx('flex mr-8 items-center  hover:text-blue-600',{' text-blue-600': pathname() === "/about",},)}>
                 <TiInfo />
                 <Link href={"/about"}>About us</Link>
             </li>
