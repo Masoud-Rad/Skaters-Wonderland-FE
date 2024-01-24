@@ -30,7 +30,7 @@ interface LandResult {
     lands: LandSample[];
 }
 const PopularLands = async () => {
-    const res: Response = await fetch(`https://skaters-wonderland-be.onrender.com/api/lands/?sort_by=vote&order_by=DESC`)
+    const res: Response = await fetch(`https://skaters-wonderland-be.onrender.com/api/lands/?sort_by=vote&order_by=DESC&ourputCount=4`)
     const {lands}: LandResult = await res.json();
   return (
     <>

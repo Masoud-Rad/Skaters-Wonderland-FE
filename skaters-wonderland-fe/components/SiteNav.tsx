@@ -24,7 +24,7 @@ const SiteNav = () => {
               },
             )}>Home</Link>
             </li>
-            <li key= "Woderlands" className={clsx('flex mr-8 items-center  hover:text-blue-600',{' text-blue-600': pathname() === "/lands",},)}>
+            <li key= "Woderlands" className={clsx('flex mr-8 items-center justify-start hover:text-blue-600',{' text-blue-600': pathname() === "/lands",},)}>
                 <Link href={"/lands"}>Woderlands</Link>
             </li>
             <li key= "PT" className={clsx('flex mr-8 items-center  hover:text-blue-600',{' text-blue-600': pathname() === "",},)}>
