@@ -34,7 +34,7 @@ const PopularLands = async () => {
     const {lands}: LandResult = await res.json();
   return (
     <>
-    <ul className="flex flex-col md:flex-row md:overflow-hidden">
+    <ul className="flex flex-col md:flex-row md:overflow-hidden shadow-sm">
         {
             lands.map(land => (
               <li key={land.land_id} className=' w-full flex-grow md:w-64 m-1 p-1 bg-gray-50 hover:bg-sky-100'  >
