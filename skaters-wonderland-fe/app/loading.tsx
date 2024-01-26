@@ -1,5 +1,5 @@
 
-const loading = () => {
+const Loading = () => {
   return (
     <>
       <h1 className="items-center text-10">loading....</h1>
@@ -8,4 +8,4 @@ const loading = () => {
   )
 }
 
-export default loading
+export default Loading
