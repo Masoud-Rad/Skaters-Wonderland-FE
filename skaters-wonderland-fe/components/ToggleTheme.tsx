@@ -1,7 +1,11 @@
 'use client';
 
+import { ThemeContext } from '@/context/ThemContext';
 import { useContext } from 'react';
-import { ThemeContext } from '@/context/ThemContext'
+
+import { MdOutlineLightMode } from "react-icons/md";
+import { MdOutlineDarkMode } from "react-icons/md";
+
 
 const ToggleTheme = () => {
 const {theme, toggleTheme } = useContext(ThemeContext)
@@ -9,10 +13,18 @@ const {theme, toggleTheme } = useContext(ThemeContext)
   
 
   return (
-        <button
-        className={`border-2 border-${theme === "bumblebee" ? 'white' : 'blue-600'} rounded-2xl text-${theme === "bumblebee" ? 'white' : 'blue-600'} shadow-sm p-1 px-2 m-2`}
-        onClick={toggleTheme}
-        ></button>
+<>
+<div  className='bg-black w-6 h-6 cursor-pointer'>
+<div onClick={toggleTheme}></div>
+    </div></>
+    
+//     <button
+//             className={`border-2 border-${theme === 'bumblebee' ? 'blue-600' : 'white'} rounded-2xl  shadow-sm p-1 px-2 m-2`}
+//             onClick={toggleTheme} >
+//             <div className="flex items-center">
+//             {/* {theme === 'bumblebee' ? <MdOutlineLightMode /> : <MdOutlineDarkMode />} */}
+//             </div>
+//   </button>
   );
 };
 
