@@ -1,11 +1,33 @@
 import React from 'react'
 
+
+import { useRouter} from 'next/navigation'
+import { IoHome } from "react-icons/io5";
+import { IoChevronBackCircleSharp } from "react-icons/io5";
+
 const Footer = () => {
+  const router = useRouter();
   return (
     
-    <div className='flex border-2 rounded-xl justify-center  bg-gray-50 p-9'>
-         <h2 className='border-2 border-blue-600 rounded-2xl text-blue-600 shadow-sm p-1 px-2 m-2'>Happy skating</h2>
-          
+    <div className='flex border-2 rounded-xl justify-evenly p-1'>
+      <button
+          className="btn"
+          onClick={() => router.back()}
+        >
+          <IoChevronBackCircleSharp />
+        </button>
+         <h2 className='border-2border-color: transparent;
+    border-color: oklch(var(--btn-color, var(--b2)) / var(--tw-border-opacity)); rounded-2xl text-gray-600 shadow-md p-1 px-2 m-2'>Happy skating</h2>
+         <button
+          className="btn"
+          onClick={() => router.replace(`/`)}
+        >
+          <IoHome />
+        </button>
+         <div className="mt-8 flex justify-between">
+        
+        
+      </div>
         </div>
   )
 }

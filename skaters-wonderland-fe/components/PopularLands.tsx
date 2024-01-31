@@ -37,8 +37,8 @@ const PopularLands = async () => {
     <ul className="flex flex-col md:flex-row md:overflow-hidden shadow-sm">
         {
             lands.map(land => (
-              <li key={land.land_id} className=' w-full flex-grow md:w-64 m-1 p-1 bg-gray-50 hover:bg-sky-100'  >
-                <Link href={`/lands/${land.land_id}`}>{land.landname}</Link>
+              <li key={land.land_id} className=' w-full flex-grow md:w-64 m-1 p-1 '  >
+                <Link href={`/lands/${land.land_id}`} className='hover: underline'>{land.landname}</Link>
                 <img src={land.land_img_url} alt="wonderLand's pic" />
                 <span>{land.city}</span>
               </li>)

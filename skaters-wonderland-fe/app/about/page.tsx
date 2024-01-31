@@ -3,7 +3,7 @@ import React from 'react'
 const About = () => {
   return (
     <>
-    <section className='border-2 rounded-sm mt-6 text-center shadow-lg bg-gray-50 p-9'>
+    <section className='border-2 rounded-sm mt-6 text-center shadow-lg p-9'>
         <h1 className='font-bold mb-8'>Welcome to Skaters-Wonderland!</h1>
         <p>
         At Skaters-Wonderland, we've built more than just a platform; we've created a thriving community for skaters, trainers, and enthusiasts to come together, connect, and explore the wonderful world of skating. Our mission is to provide a space where individuals passionate about skating can share experiences, discover new spots, connect with like-minded individuals, and support local businesses.
@@ -44,7 +44,7 @@ const About = () => {
             </li>
         </ul>
 
-        <p className='border-2 rounded-full mt-6 text-center shadow-lg bg-blue-50 p-9 font-medium'>
+        <p className='border-2 rounded-full mt-6 text-center shadow-lg  p-9 font-medium'>
             Join us on Skaters-Wonderland, where the joy of skating meets the spirit of community. Let's roll together!
         </p>
         

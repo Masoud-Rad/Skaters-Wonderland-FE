@@ -26,7 +26,7 @@ export const ThemeProvider = ({children}: ThemeProviderProb) => {
   
   const toggleTheme = () => {
     setTheme((currTheme) => {
-      console.log({currTheme})
+      
       return currTheme === 'bumblebee' ? 'dark' : 'bumblebee';
     });
   };
