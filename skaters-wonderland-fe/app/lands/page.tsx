@@ -41,8 +41,8 @@ const LandsPage =  async () => {
     <ul className="flex flex-wrap justify-center gap-4 md:justify-between md:mx-4 lg:mx-8">
         {
             lands.map(land => (
-              <li key={land.land_id} className='w-full md:w-1/2 lg:w-1/3 mb-8 p-4 bg-gray-50 hover:bg-sky-100 rounded-md'  >
-                <Link href={`/lands/${land.land_id}`} className="block mb-2 text-xl font-semibold text-blue-600 hover:underline">{land.landname}</Link>
+              <li key={land.land_id} className='w-full md:w-1/2 lg:w-1/3 mb-8 p-4 rounded-md'  >
+                <Link href={`/lands/${land.land_id}`} className="block mb-2 text-xl font-semibold  hover:underline">{land.landname}</Link>
                 <img src={land.land_img_url} alt="wonderLand's pic" className="w-full h-40 object-cover mb-2 rounded-md"/>
                 <span className="text-gray-700">{land.city}</span>
               </li>)

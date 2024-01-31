@@ -4,6 +4,8 @@ import "./globals.css";
 
 import MainLayout from "@/components/MainLayout";
 
+import { ThemeProvider } from "@/context/ThemContext";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en"  className="p-5 w-screen min-h-screen">
       <body className={inter.className}> 
-        <MainLayout>{children}</MainLayout>  
+        <ThemeProvider>
+          <MainLayout>{children}</MainLayout> 
+        </ThemeProvider> 
       </body>
     </html>
   );
