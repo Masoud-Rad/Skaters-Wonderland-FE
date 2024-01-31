@@ -7,13 +7,15 @@ import { TiInfo } from "react-icons/ti";
 
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx';
+import { IoMenu } from "react-icons/io5";
 
 const SiteNav = () => {
     const pathname = usePathname
 
 
   return (
-    <nav className='flex '>
+    <nav className='flex basis-3/4'>
+        
         <ul className=' grid lg:grid-cols-6 gap-3 text-[14px] ml-4'>
             <li key= "home" className='flex mr-8 items-center'>
                 <IoHome />
