@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
       
-        <div className='flex border-2 rounded-xl justify-between shadow-lg  p-9 border-t-0'>
+        <div className='glass flex border-2 rounded-xl justify-between shadow-lg  p-9 border-t-0'>
           <SiteNav />
           <button className='btn'>Log in</button>
           <ToggleTheme />

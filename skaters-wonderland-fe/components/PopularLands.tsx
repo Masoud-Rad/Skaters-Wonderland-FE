@@ -34,10 +34,13 @@ const PopularLands = async () => {
     const {lands}: LandResult = await res.json();
   return (
     <>
-    <ul className="flex flex-col md:flex-row md:overflow-hidden shadow-sm">
+    <ul className="flex flex-col md:flex-row md:overflow-hidden shadow-sm ">
         {
             lands.map(land => (
-              <li key={land.land_id} className=' w-full flex-grow md:w-64 m-1 p-1 '  >
+              <li key={land.land_id} className={`w-full md:w-64 m-1 p-1 hover:bg-sky-100 hover:text-blue-600 ${
+              // Add responsive font size classes based on screen size
+              'text-base md:text-sm lg:text-lg'
+            }`}  >
                 <Link href={`/lands/${land.land_id}`} className='hover: underline'>{land.landname}</Link>
                 <img src={land.land_img_url} alt="wonderLand's pic" />
                 <span>{land.city}</span>

@@ -1,15 +1,17 @@
 import React from 'react'
 
+
 const About = () => {
   return (
     <>
-    <section className='border-2 rounded-sm mt-6 text-center shadow-lg p-9'>
-        <h1 className='font-bold mb-8'>Welcome to Skaters-Wonderland!</h1>
-        <p>
+    <section className='border-2 rounded-lg mt-2 
+   mb-2 border-t-0 text-center shadow-lg p-9'>
+        <h1 className='sm:text-lg md:text-xl 2xl:text-2xl font-bold mb-8'>Welcome to Skaters-Wonderland!</h1>
+        <p className='sm:text-sm md:text-lg '>
         At Skaters-Wonderland, we've built more than just a platform; we've created a thriving community for skaters, trainers, and enthusiasts to come together, connect, and explore the wonderful world of skating. Our mission is to provide a space where individuals passionate about skating can share experiences, discover new spots, connect with like-minded individuals, and support local businesses.
         </p>
-        <h2 className='font-semibold my-4'>Why Skaters-Wonderland?</h2>
-        <ul>
+        <h2 className='sm:text-sm md:text-lg lg:text-xl font-semibold my-4'>Why Skaters-Wonderland?</h2>
+        <ul className='sm:text-sm md:text-lg '>
             <li className=' m-5'>
                 <p className=' text-blue-500'>
                 Explore Skate Spots:
@@ -44,7 +46,7 @@ const About = () => {
             </li>
         </ul>
 
-        <p className='border-2 rounded-full mt-6 text-center shadow-lg  p-9 font-medium'>
+        <p className='glass border-2 rounded-full mt-6 text-center shadow-lg  p-9 font-medium'>
             Join us on Skaters-Wonderland, where the joy of skating meets the spirit of community. Let's roll together!
         </p>
         

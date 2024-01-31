@@ -15,17 +15,18 @@ export default function Home() {
           <PopularLands />
         </Suspense>
 
+        
         <Link
           key="lands"
           href="/lands"
-          className="flex h-[48px] grow items-center justify-center text-center mt-8  rounded-md bg-gray-50 p-3 text-sm font-medium  hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
+          className="flex h-[48px] grow items-center  justify-center text-center mt-8  rounded-md  p-3 text-sm font-medium  hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
         >
           See all Skater Wonderlands
         </Link>
         <Link
           key="users"
           href="/users"
-          className="flex h-[48px] grow items-center justify-center mt-8 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3 "
+          className="flex h-[48px] grow items-center justify-center mt-8 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3 "
         >
           See all the users
         </Link>
