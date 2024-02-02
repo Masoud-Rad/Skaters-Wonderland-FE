@@ -7,16 +7,33 @@ import { TiInfo } from "react-icons/ti";
 
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx';
-import { IoMenu } from "react-icons/io5";
+import ToggleMenu from './ToggleMenu';
+
+import { MenuContext } from "@/context/MenuContex";
+import { useContext } from "react";
+
 
 const SiteNav = () => {
+
     const pathname = usePathname
+
+    const { menuDisplay } = useContext(MenuContext);
 
 
   return (
     <nav className='flex basis-3/4'>
-        
-        <ul className=' grid lg:grid-cols-6 gap-3 text-[14px] ml-4'>
+      {/* ToggleMenu is hidden by default, visible on small screens */}
+        <ToggleMenu />
+        <ul className={clsx(
+          'lg:flex', // Always show on large screens
+          {
+            'hidden': !menuDisplay, // Hide on small screens if menuDisplay is false
+            'lg:flex': menuDisplay, // Show on small screens if menuDisplay is true
+          },
+          'gap-3',
+          'text-[14px]',
+          'ml-4'
+        )}>
             <li key= "home" className='flex mr-8 items-center'>
                 <IoHome />
                 <Link href={"/"} className={clsx(
