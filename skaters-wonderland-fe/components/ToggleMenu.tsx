@@ -9,7 +9,7 @@ const ToggleTheme = () => {
   const { menuDisplay, toggleMenu } = useContext(MenuContext);
 
   return (
-    <button onClick={toggleMenu} className=" hidden lg:flex">
+    <button onClick={toggleMenu} className='flex Icone items-center'>
       <IoMenu />
     </button>
   );
