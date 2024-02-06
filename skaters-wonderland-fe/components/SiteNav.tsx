@@ -24,11 +24,11 @@ const SiteNav = () => {
     <nav className='flex basis-3/4'>
       {/* ToggleMenu is hidden by default, visible on small screens */}
         <ToggleMenu />
-        <ul className={clsx(
+        <ul className={clsx( 
           'lg:flex', // Always show on large screens
           {
-            'hidden': !menuDisplay, // Hide on small screens if menuDisplay is false
-            'lg:flex': menuDisplay, // Show on small screens if menuDisplay is true
+            'sm: hidden': !menuDisplay, // Hide on small screens if menuDisplay is false
+            'sm:flex': menuDisplay, // Show on small screens if menuDisplay is true
           },
           'gap-3',
           'text-[14px]',

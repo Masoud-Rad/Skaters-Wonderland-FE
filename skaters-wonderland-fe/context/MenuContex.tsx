@@ -22,7 +22,7 @@ toggleMenu: () => {}});
 
 export const MenuProvider = ({children}: MenuProviderProb) => {
 
-  const [menuDisplay, setMenuDisplay] = useState(true);
+  const [menuDisplay, setMenuDisplay] = useState(false);
   
   const toggleMenu = () => {
     setMenuDisplay((currMenu) => {

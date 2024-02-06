@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
       
-        <div className='glass flex flex-row border-2 rounded-xl justify-between shadow-lg  p-9 border-t-0'>
+        <div className='glass flex flex-row border-2 rounded-xl justify-between shadow-lg px-2 border-t-0'>
           <SiteNav />
          
           <button className='btn m-1'><MdAccountCircle size={22} /></button>
