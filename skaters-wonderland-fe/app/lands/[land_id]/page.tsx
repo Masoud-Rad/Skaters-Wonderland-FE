@@ -24,10 +24,6 @@ interface LandSample {
     suitability_rating_total: number;
     suitability_rating_count: number;
     suitability_rating_ave: number;
-    cost: string;
-    is_public: boolean;
-    has_rink: boolean;
-    suitabile_for: string;
     land_img_url: string;
     username: string;
     [key: string]: any;
@@ -52,18 +48,29 @@ const SingleLand = async({params}: SingleLandProps) => {
         <h1 className="font-bold mb-4 sm:text-lg md:text-xl lg:text-3xl">{land.landname}</h1>
         <p className=" mb-4 sm:text-sm md:text-lg lg:text-xl">{land.description}</p>
 
-        {/* Display other details */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
+        <div className='mb-3'>
             <h2 className="sm:text-lg md:text-xl lg:text-3xl font-semibold mb-2">Location</h2>
             <p>{land.city}, {land.country}</p>
             <p>{land.postcode}</p>
           </div>
-          <div>
-            <h2 className= " sm:text-lg md:text-xl lg:text-3xl font-semibold mb-2">Safety Rating</h2>
-            <p className=' sm:text-sm md:text-lg lg:text-xl'>Safety: {land.safety_rating_ave}</p>
-            <p className=' sm:text-sm md:text-lg lg:text-xl'>Total Votes: {land.safety_rating_count}</p>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className=' border p-2 rounded-xl'>
+            <p className=' sm:text-xs md:text-sm lg:text-l'>Safety : {land.safety_rating_ave} </p>
+            <div className='border-t'>
+            <p className=' sm:text-xs md:text-sm '>How would you rate the safety of this place? </p>
+            <button className='btn p-1 m-1'>1</button><button className='btn p-1 m-1'>2</button><button className='btn p-1 m-1'>3</button><button className='btn p-1 m-1'>4</button><button className='btn p-1 m-1'>5</button>
+            </div>
           </div>
+
+          <div className=' border p-2 rounded-xl'>
+            <p className=' sm:text-xs md:text-sm lg:text-l'>Suitability : {land.suitability_rating_ave} </p>
+            <div className='border-t '>
+            <p className=' sm:text-xs md:text-sm'>How would you rate the suitability of this place? </p>
+            <button className='btn p-1 m-1'>1</button><button className='btn p-1 m-1'>2</button><button className='btn p-1 m-1'>3</button><button className='btn p-1 m-1'>4</button><button className='btn p-1 m-1'>5</button>
+            </div>
+          </div>
+
         </div>
       </div>
 
