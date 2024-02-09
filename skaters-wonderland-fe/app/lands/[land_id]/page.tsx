@@ -1,4 +1,4 @@
-'use client';
+
 
 import React from 'react'
 
@@ -46,7 +46,7 @@ const SingleLand = async({params}: SingleLandProps) => {
     <>
  <div className='max-w-2xl mx-auto mt-8 mb-4 '>
       <div className="mb-4">
-        <img src={land.land_img_url} alt={land.landname} className="w-full h-64 object-cover rounded-md" />
+        <img src={land.land_img_url? land.land_img_url:""} alt={land.landname} className="w-full h-64 object-cover rounded-md" />
       </div>
       <div className=" p-6 rounded-md shadow-md">
         <h1 className="font-bold mb-4 sm:text-lg md:text-xl lg:text-3xl">{land.landname}</h1>

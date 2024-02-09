@@ -1,4 +1,4 @@
-'use client';
+
 import React from 'react'
 import Link from 'next/link'
 
@@ -42,7 +42,7 @@ const PopularLands = async () => {
               'text-base md:text-sm lg:text-lg'
             }`}  >
                 <Link href={`/lands/${land.land_id}`} className='hover: underline'>{land.landname}</Link>
-                <img src={land.land_img_url} alt="wonderLand's pic" />
+                <img src={land.land_img_url? land.land_img_url:"" } alt="wonderLand's pic" />
                 <span>{land.city}</span>
               </li>)
          ) 
