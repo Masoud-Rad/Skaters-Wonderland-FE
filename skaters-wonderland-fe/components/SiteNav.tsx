@@ -25,7 +25,7 @@ const SiteNav = () => {
       {/* ToggleMenu is hidden by default, visible on small screens */}
         <ToggleMenu />
         <ul className={clsx( 
-          'lg:flex', // Always show on large screens
+          'lg:flex',  // Always show on large screens
           {
             'sm: hidden': !menuDisplay, // Hide on small screens if menuDisplay is false
             'sm:flex': menuDisplay, // Show on small screens if menuDisplay is true

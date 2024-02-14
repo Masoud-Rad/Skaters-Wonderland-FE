@@ -1,6 +1,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { BiSolidCommentAdd } from "react-icons/bi";
 
 //**** landsType
 interface LandSample {
@@ -34,6 +35,11 @@ const LandsPage =  async () => {
   return (
     <>
     <h1 className="sm:text-xl md:text-2xl lg:text-3xl font-bold underline text-center m-8">Skater Wonderlands</h1>
+    <div  className='flex justify-end'>
+      <button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+         <BiSolidCommentAdd />
+      </button>
+    </div>
     <ul className="flex flex-wrap justify-center gap-4 md:justify-between md:mx-4 lg:mx-8">
         {
             lands.map(land => (
