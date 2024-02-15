@@ -1,7 +1,9 @@
 
 import React from 'react'
+import { fetchLands } from '@/utils';
 import Link from 'next/link'
-import { BiSolidCommentAdd } from "react-icons/bi";
+import { MdPostAdd } from "react-icons/md";
+
 
 //**** landsType
 interface LandSample {
@@ -29,16 +31,16 @@ interface LandResult {
 
 const LandsPage =  async () => {
 
-   const res: Response = await fetch(`https://skaters-wonderland-be.onrender.com/api/lands`)
-   const {lands}: LandResult = await res.json();
+   const res = await fetchLands()
+   const {lands}: LandResult =  res;
    
   return (
     <>
     <h1 className="sm:text-xl md:text-2xl lg:text-3xl font-bold underline text-center m-8">Skater Wonderlands</h1>
     <div  className='flex justify-end'>
-      <button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-         <BiSolidCommentAdd />
-      </button>
+      <Link href={"/lands/addLand"} className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+         <MdPostAdd />
+      </Link>
     </div>
     <ul className="flex flex-wrap justify-center gap-4 md:justify-between md:mx-4 lg:mx-8">
         {
