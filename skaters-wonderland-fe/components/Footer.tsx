@@ -9,7 +9,7 @@ const Footer = () => {
   const router = useRouter();
   return (
     
-    <div className=' glass flex border-2 rounded-xl justify-evenly p-1'>
+    <div className=' glass flex border-2 rounded-xl justify-evenly p-1 '>
       <button
           className="btn"
           onClick={() => router.back()}

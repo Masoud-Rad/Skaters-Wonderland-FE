@@ -18,12 +18,12 @@ const MainLayout = ({children}:MainProp) => {
 
     const { theme } = useContext(ThemeContext)
   return (
-    <main data-theme={theme} className={'p-3'}>
+    <main data-theme={theme} className='p-3 min-h-screen'>
         <MenuProvider>
           <Header/> 
         </MenuProvider>
         {children}
-        <Footer/>
+        <Footer />
     </main>
   )
 }
