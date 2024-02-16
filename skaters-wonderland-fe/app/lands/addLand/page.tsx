@@ -1,47 +1,68 @@
 "use client";
 import React, { ChangeEvent, useState } from "react";
+import { addNewLand } from "@/utils";
+import { Console } from "console";
 
 const AddLand = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    city: "",
-    country: "",
-    postcode: "",
-    description: "",
-    land_img_url: "",
-    username: "",
-  });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [landname, setLandname] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [description, setDescription] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
+  const [username, setUsername] = useState("");
+
+ 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await addNewLand({
+        "landname": landname,
+        "city": city,
+        "country": country,
+        "postcode": postcode,
+        "description": description,
+        "land_img_url": imgUrl,
+        "username": username,
+      });
+      console.log("in the addLand",response); 
+
+      setLandname("");
+      setCity("");
+      setCountry("");
+      setPostcode("");
+      setDescription("");
+      setImgUrl("");
+      setUsername("");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    
+    }
   };
+  
+  
 
   return (
     <div className="container mx-auto mt-8">
-      <h1 className="text-2xl font-bold mb-4 mx-auto">Add Land</h1>
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+      
+      <form  id= "addLandForm" onSubmit={handleSubmit} className="max-w-lg mx-auto">
+        <h1 className="text-2xl font-bold mb-4 mx-auto">Add Land</h1>
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
+            htmlFor="landname"
           >
             Name
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
+            id="landname"
+            name="landname"
+            placeholder="please enter the land's name"
+            value={landname}
+            onChange={(event)=>{ setLandname(event.target.value)}}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -57,8 +78,9 @@ const AddLand = () => {
             type="text"
             id="city"
             name="city"
-            value={formData.city}
-            onChange={handleChange}
+            placeholder="please enter the city"
+            value={city}
+            onChange={(event)=>{ setCity(event.target.value)}}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -74,8 +96,9 @@ const AddLand = () => {
             type="text"
             id="country"
             name="country"
-            value={formData.country}
-            onChange={handleChange}
+            placeholder="please enter the country"
+            value={country}
+            onChange={(event)=>{ setCountry(event.target.value)}}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -91,8 +114,9 @@ const AddLand = () => {
             type="text"
             id="postcode"
             name="postcode"
-            value={formData.postcode}
-            onChange={handleChange}
+            placeholder="please enter the postcode"
+            value={postcode}
+            onChange={(event)=>{ setPostcode(event.target.value)}}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -108,8 +132,9 @@ const AddLand = () => {
             type="text"
             id="description"
             name="description"
-            value={formData.description}
-            onChange={handleChange}
+            placeholder="please enter the description"
+            value={description}
+            onChange={(event)=>{ setDescription(event.target.value)}}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -125,8 +150,9 @@ const AddLand = () => {
             type="text"
             id="land_img_url"
             name="land_img_url"
-            value={formData.land_img_url}
-            onChange={handleChange}
+            placeholder="please enter the url"
+            value={imgUrl}
+            onChange={(event)=>{ setImgUrl(event.target.value)}}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -142,8 +168,9 @@ const AddLand = () => {
             type="text"
             id="username"
             name="username"
-            value={formData.username}
-            onChange={handleChange}
+            placeholder="please enter the username"
+            value={username}
+            onChange={(event)=>{ setUsername(event.target.value)}}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
