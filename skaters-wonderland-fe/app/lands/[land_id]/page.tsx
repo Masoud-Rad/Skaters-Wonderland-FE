@@ -1,6 +1,10 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { FaCommentDots } from "react-icons/fa";
 import { BiSolidCommentAdd } from "react-icons/bi";
+import { AiOutlineLike } from "react-icons/ai";
+import { patchLands, fetchLandById } from "@/utils";
+
 
 //**** landsType
 type SingleLandProps = {
@@ -29,10 +33,6 @@ interface LandSample {
   [key: string]: any;
 }
 
-interface LandResult {
-  land: LandSample;
-}
-
 //**** commentsType
 interface CommentSample {
   comment_id: number;
@@ -46,49 +46,88 @@ interface CommentResult {
   comments: CommentSample[];
 }
 
-const SingleLand = async ({ params }: SingleLandProps) => {
-  const res = await fetch(
-    `https://skaters-wonderland-be.onrender.com/api/lands/${params.land_id}`
-  );
-  const { land }: LandResult = await res.json();
+const SingleLand = ({ params }: SingleLandProps) => {
+  const [liked, setLiked] = useState(false);
+  const [land, setLand] = useState<LandSample | null>(null);
+  const [comments, setComments] = useState<CommentSample[]>([]);
 
-  const commentsRes = await fetch(
-    `https://skaters-wonderland-be.onrender.com/api/lands/${params.land_id}/comments`
-  );
-  const { comments }: CommentResult = await commentsRes.json();
-  
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const res = await fetchLandById(params.land_id);
+      const { land }: { land: LandSample } = res;
+      setLand(land);
+
+      const commentsRes = await fetch(
+        `https://skaters-wonderland-be.onrender.com/api/lands/${params.land_id}/comments`
+      );
+      const { comments }: CommentResult = await commentsRes.json();
+      setComments(comments);
+    };
+
+    fetchData();
+  }, [params.land_id, ]);
+
+  const voteHandler = async () => {
+    try {
+      setLiked(!liked);
+      await patchLands(Number(params.land_id), {
+        votes_update: liked ? -1 : 1,
+      });
+    
+    const res = await fetchLandById(params.land_id);
+      const { land }: { land: LandSample } = res;
+      setLand(land);
+
+    } catch (error) {
+      console.error("Error voting:", error);
+    }
+  };
+
   return (
     <>
       <div className="max-w-2xl mx-auto mt-8 mb-4 ">
         <div className="mb-4">
           <img
-            src={land.land_img_url ? land.land_img_url : ""}
-            alt={land.landname}
+            src={land && land.land_img_url ? land.land_img_url : ""}
+            alt={land?land.landname:""}
             className="w-full h-64 object-cover rounded-md"
           />
         </div>
         <div className=" p-6 rounded-md shadow-md">
-          <h1 className="font-bold mb-4 sm:text-lg md:text-xl lg:text-2xl ">
-            {land.landname}
-          </h1>
+          <div className="flex justify-between items-center">
+            <h1 className="font-bold mb-4 sm:text-lg md:text-xl lg:text-2xl ">
+              {land?land.landname:""}
+            </h1>
+            <div className="">
+              <span>{land?land.vote:""}</span>
+              <button
+                className={`btn p-0 m-3 hover:bg-blue-700 hover:text-white ${
+                  liked ? "text-blue-500 bg-blue-300" : ""
+                }`}
+                onClick={voteHandler}
+              >
+                <AiOutlineLike  size={20}/>
+              </button>
+            </div>
+          </div>
+
           <p className=" mb-4 sm:text-sm md:text-lg lg:text-xl">
-            {land.description}
+            {land?land.description:""}
           </p>
 
           <div className="mb-3">
-            <p className="sm:text-sm md:text-md lg:text-lg">
-              Location
-            </p>
+            <p className="sm:text-sm md:text-md lg:text-lg">Location</p>
             <p>
-              {land.city}, {land.country}
+              {land?land.city:""}, {land?land.country:""}
             </p>
-            <p>{land.postcode}</p>
+            <p>{land?land.postcode:""}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className=" border p-2 rounded-xl">
               <p className=" sm:text-xs md:text-sm lg:text-l">
-                Safety : {land.safety_rating_ave}{" "}
+                Safety : {land?land.safety_rating_ave:""}{" "}
               </p>
               <div className="border-t">
                 <p className=" sm:text-xs md:text-sm ">
@@ -114,7 +153,7 @@ const SingleLand = async ({ params }: SingleLandProps) => {
 
             <div className=" border p-2 rounded-xl">
               <p className=" sm:text-xs md:text-sm lg:text-l">
-                Suitability : {land.suitability_rating_ave}{" "}
+                Suitability : {land?land.suitability_rating_ave:""}{" "}
               </p>
               <div className="border-t ">
                 <p className=" sm:text-xs md:text-sm">

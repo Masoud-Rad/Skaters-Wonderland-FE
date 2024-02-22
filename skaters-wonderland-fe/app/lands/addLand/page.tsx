@@ -1,7 +1,6 @@
 "use client";
 import React, { ChangeEvent, useState } from "react";
 import { addNewLand } from "@/utils";
-import { Console } from "console";
 
 const AddLand = () => {
 
@@ -27,7 +26,7 @@ const AddLand = () => {
         "land_img_url": imgUrl,
         "username": username,
       });
-      console.log("in the addLand",response); 
+      
 
       setLandname("");
       setCity("");
