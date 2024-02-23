@@ -27,7 +27,7 @@ const AddLand = () => {
         "username": username,
       });
       
-
+      alert("Land added succesfully")
       setLandname("");
       setCity("");
       setCountry("");

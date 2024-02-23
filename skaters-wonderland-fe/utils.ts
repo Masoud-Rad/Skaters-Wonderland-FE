@@ -35,10 +35,9 @@ interface LandVoteUpdate {
   }
 
   export const fetchLandById = (land_id: string)=>{
-console.log("land-id", land_id)
+
     return  SwApi.get(`/lands/${land_id}`)
     .then((response)=> {
-      console.log("laaaand: ", response.data)
       return(response.data);
     })
     .catch((error) =>{
