@@ -51,6 +51,12 @@ const SingleLand = ({ params }: SingleLandProps) => {
   const [land, setLand] = useState<LandSample | null>(null);
   const [comments, setComments] = useState<CommentSample[]>([]);
 
+  //add comment states
+  const [username, setUsername] = useState("");
+  const [commentBody, setCommentBody] = useState("");
+  const [showAddComment, setShowAddComment] = useState(false);
+
+  
   useEffect(() => {
 
     const fetchData = async () => {
@@ -81,6 +87,20 @@ const SingleLand = ({ params }: SingleLandProps) => {
 
     } catch (error) {
       console.error("Error voting:", error);
+    }
+  };
+
+  const handleAddCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      
+      
+      alert("Comment added succesfully")
+      setCommentBody("");
+      setUsername("");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    
     }
   };
 
@@ -205,10 +225,54 @@ const SingleLand = ({ params }: SingleLandProps) => {
                 </li>
               ))}
             </ul>
-
-            <button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              <BiSolidCommentAdd />
-            </button>
+            {/* Add comment */}
+            {showAddComment ? (
+              <div className="container mx-auto mt-8">
+                <form
+                  id="addCommentForm"
+                  onSubmit={handleAddCommentSubmit}
+                  className="max-w-lg mx-auto"
+                >
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Please enter the username"
+                    value={username}
+                    onChange={(event) => {
+                      setUsername(event.target.value);
+                    }}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                  <input
+                    type="text"
+                    id="commentBody"
+                    name="commentBody"
+                    placeholder="Write some things"
+                    value={commentBody}
+                    onChange={(event) => {
+                      setCommentBody(event.target.value);
+                    }}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 h-20 my-6 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                  <div className="mb-4">
+                    <button
+                      type="submit"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    >
+                      Add comment
+                    </button>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowAddComment(true)}
+                className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                <BiSolidCommentAdd />
+              </button>
+            )}
           </div>
         </div>
       </div>
