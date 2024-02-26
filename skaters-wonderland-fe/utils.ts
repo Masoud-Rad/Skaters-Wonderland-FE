@@ -7,18 +7,23 @@ const SwApi = axios.create({
 //--------------------------------Types---------------------
 
 interface LandPostBody{
-    landname: string,
-    city: string,
-    country: string,
-    postcode: string,
-    description: string,
-    land_img_url: string,
-    username: string,
+    landname: string;
+    city: string;
+    country: string;
+    postcode: string;
+    description: string;
+    land_img_url: string;
+    username: string;
   }
 
 
 interface LandVoteUpdate {
-  votes_update : number
+  votes_update : number;
+}
+
+interface CommentPostBody {
+  body: string;
+  username: string;
 }
 //--------------------------------lands---------------------
 
@@ -71,3 +76,20 @@ console.log("in utils, postBody:", postBody)
     })
  
   }
+
+
+  //------------------------------------------comments----------------------------------
+
+  
+  
+  export const addComment = (land_id: string, postBody: CommentPostBody)=>{
+        return  SwApi.post(`/lands/${land_id}/comments`, postBody)
+          .then((response)=> {
+            return(response);
+          })
+          .catch((error) =>{
+            console.log(error.status);
+          })
+      }
+
+        

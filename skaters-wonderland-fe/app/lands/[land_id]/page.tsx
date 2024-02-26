@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { FaCommentDots } from "react-icons/fa";
 import { BiSolidCommentAdd } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
-import { patchLands, fetchLandById } from "@/utils";
+import { patchLands, fetchLandById, addComment } from "@/utils";
+
 
 
 //**** landsType
@@ -52,10 +53,11 @@ const SingleLand = ({ params }: SingleLandProps) => {
   const [comments, setComments] = useState<CommentSample[]>([]);
 
   //add comment states
-  const [username, setUsername] = useState("");
+  const [adderCommentUsername, setAdderCommentUsername] = useState("");
   const [commentBody, setCommentBody] = useState("");
   const [showAddComment, setShowAddComment] = useState(false);
-
+  
+  
   
   useEffect(() => {
 
@@ -93,11 +95,17 @@ const SingleLand = ({ params }: SingleLandProps) => {
   const handleAddCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      const res = await addComment(params.land_id, {"body": commentBody, "username": adderCommentUsername})
       
-      
-      alert("Comment added succesfully")
-      setCommentBody("");
-      setUsername("");
+
+      const commentsRes = await fetch(
+        `https://skaters-wonderland-be.onrender.com/api/lands/${params.land_id}/comments`
+      );
+      const { comments }: CommentResult = await commentsRes.json();
+      setComments(comments);
+
+      setShowAddComment(false)
+
     } catch (error) {
       console.error("Error submitting form:", error);
     
@@ -143,7 +151,7 @@ const SingleLand = ({ params }: SingleLandProps) => {
             </p>
             <p>{land?land.postcode:""}</p>
           </div>
-
+                
           <div className="grid grid-cols-2 gap-4">
             <div className=" border p-2 rounded-xl">
               <p className=" sm:text-xs md:text-sm lg:text-l">
@@ -238,9 +246,9 @@ const SingleLand = ({ params }: SingleLandProps) => {
                     id="username"
                     name="username"
                     placeholder="Please enter the username"
-                    value={username}
+                    value={adderCommentUsername}
                     onChange={(event) => {
-                      setUsername(event.target.value);
+                      setAdderCommentUsername(event.target.value);
                     }}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
