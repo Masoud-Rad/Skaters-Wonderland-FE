@@ -92,4 +92,15 @@ console.log("in utils, postBody:", postBody)
           })
       }
 
-        
+  
+  export const deleteComment = (commentID: string)=>{
+
+    return  SwApi.delete(`/comments/${commentID}`).then((res)=>{
+      
+    })
+    .catch((error) =>{
+      // handle error
+      console.log(error.response);
+    })
+
+  }
