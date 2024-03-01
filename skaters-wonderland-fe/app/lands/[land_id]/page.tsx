@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { FaCommentDots } from "react-icons/fa";
 import { BiSolidCommentAdd } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
-import { patchLands, fetchLandById, addComment } from "@/utils";
+import { MdDeleteForever } from "react-icons/md";
+import { patchLands, fetchLandById, addComment, deleteComment } from "@/utils";
 
 
 
@@ -112,6 +113,25 @@ const SingleLand = ({ params }: SingleLandProps) => {
     }
   };
 
+  const handleDeleteComment = async (commentId: string)=>{
+
+    try{
+      await deleteComment(commentId)
+      
+      const commentsRes = await fetch(
+        `https://skaters-wonderland-be.onrender.com/api/lands/${params.land_id}/comments`
+      );
+      const { comments }: CommentResult = await commentsRes.json();
+      setComments(comments);
+
+      setShowAddComment(false)
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    
+    }
+  }
+
   return (
     <>
       <div className="max-w-2xl mx-auto mt-8 mb-4 ">
@@ -215,9 +235,11 @@ const SingleLand = ({ params }: SingleLandProps) => {
               {comments.map((comment) => (
                 <li key={comment.comment_id} className="border-b">
                   <div className="flex items-center justify-between mb-1">
+
                     <h3 className="text-sm text-gray-500">
                       {comment.username}
                     </h3>
+                    
                     <p className="text-sm text-gray-500">
                       {new Date(comment.created_at).toLocaleDateString(
                         undefined,
@@ -228,6 +250,14 @@ const SingleLand = ({ params }: SingleLandProps) => {
                         }
                       )}
                     </p>
+
+                    <button
+                onClick={() => handleDeleteComment(comment.comment_id)}
+                className="m-1"
+              >
+                <MdDeleteForever />
+              </button>
+                    
                   </div>
                   <p className="text-sm">{comment.body}</p>
                 </li>
