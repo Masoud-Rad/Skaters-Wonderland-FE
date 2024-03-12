@@ -17,14 +17,16 @@ interface LandPostBody{
   }
 
 
-interface LandVoteUpdate {
-  votes_update : number;
-}
+interface LandParamsType {
+    votes_update? : number;
+    safety_rating_update? : number;
+    suitability_rating_update?: number;
+  }
 
 interface CommentPostBody {
-  body: string;
-  username: string;
-}
+    body: string;
+    username: string;
+  }
 //--------------------------------lands---------------------
 
 
@@ -64,10 +66,10 @@ console.log("in utils, postBody:", postBody)
   }
 
 
-  export const patchLands = (land_id: number ,votesUpdate: LandVoteUpdate)=>{
+  export const patchLands = (land_id: number ,landParams: LandParamsType)=>{
 
 
-    return  SwApi.patch(`/lands/${land_id}`, votesUpdate)
+    return  SwApi.patch(`/lands/${land_id}`, landParams)
     .then((response)=> {
       return(response.data);
     })

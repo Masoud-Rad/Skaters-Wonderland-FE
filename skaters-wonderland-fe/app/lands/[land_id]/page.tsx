@@ -49,9 +49,16 @@ interface CommentResult {
 }
 
 const SingleLand = ({ params }: SingleLandProps) => {
-  const [liked, setLiked] = useState(false);
   const [land, setLand] = useState<LandSample | null>(null);
   const [comments, setComments] = useState<CommentSample[]>([]);
+  const [liked, setLiked] = useState(false);
+
+  const [safetyRated1, setSafetyRated1] = useState(false);
+  const [safetyRated2, setSafetyRated2] = useState(false);
+  const [safetyRated3, setSafetyRated3] = useState(false);
+  const [safetyRated4, setSafetyRated4] = useState(false);
+  const [safetyRated5, setSafetyRated5] = useState(false);
+  
 
   //add comment states
   const [adderCommentUsername, setAdderCommentUsername] = useState("");
@@ -75,13 +82,14 @@ const SingleLand = ({ params }: SingleLandProps) => {
     };
 
     fetchData();
-  }, [params.land_id, ]);
+  }, [params.land_id ]);
 
   const voteHandler = async () => {
     try {
       setLiked(!liked);
       await patchLands(Number(params.land_id), {
         votes_update: liked ? -1 : 1,
+
       });
     
     const res = await fetchLandById(params.land_id);
@@ -92,6 +100,29 @@ const SingleLand = ({ params }: SingleLandProps) => {
       console.error("Error voting:", error);
     }
   };
+
+  const landSafetyHandler = async (SR_update: number) => {
+    try {
+      setSafetyRated1(SR_update === 1);
+      setSafetyRated2(SR_update === 2);
+      setSafetyRated3(SR_update === 3);
+      setSafetyRated4(SR_update === 4);
+      setSafetyRated5(SR_update === 5);
+
+      await patchLands(Number(params.land_id), {
+        safety_rating_update: SR_update
+      });
+    
+    const res = await fetchLandById(params.land_id);
+      const { land }: { land: LandSample } = res;
+      setLand(land);
+
+    } catch (error) {
+      console.error("Error updating safety rating:", error);
+    }
+  };
+
+  const landSuitabilityHandler = async (suitability_rating_update : number)=>{}
 
   const handleAddCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -147,6 +178,7 @@ const SingleLand = ({ params }: SingleLandProps) => {
             <h1 className="font-bold mb-4 sm:text-lg md:text-xl lg:text-2xl ">
               {land?land.landname:""}
             </h1>
+            <h3>suitability_rating_count : {land?land.safety_rating_count:""}</h3>
             <div className="">
               <span>{land?land.vote:""}</span>
               <button
@@ -181,19 +213,29 @@ const SingleLand = ({ params }: SingleLandProps) => {
                 <p className=" sm:text-xs md:text-sm ">
                   How would you rate the safety of this place?{" "}
                 </p>
-                <button className="btn p-1 m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSafetyHandler(1)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  safetyRated1 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   1
                 </button>
-                <button className="btn p-1 m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSafetyHandler(2)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  safetyRated2 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   2
                 </button>
-                <button className="btn p-1 m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSafetyHandler(3)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  safetyRated3 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   3
                 </button>
-                <button className="btn p-1 m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSafetyHandler(4)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  safetyRated4 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   4
                 </button>
-                <button className="btn p-1 m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSafetyHandler(5)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  safetyRated5 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   5
                 </button>
               </div>
@@ -203,23 +245,23 @@ const SingleLand = ({ params }: SingleLandProps) => {
               <p className=" sm:text-xs md:text-sm lg:text-l">
                 Suitability : {land?land.suitability_rating_ave:""}{" "}
               </p>
-              <div className="border-t ">
+              <div className="border-t ">  
                 <p className=" sm:text-xs md:text-sm">
                   How would you rate the suitability of this place?{" "}
                 </p>
-                <button className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(1)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
                   1
                 </button>
-                <button className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(2)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
                   2
                 </button>
-                <button className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(3)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
                   3
                 </button>
-                <button className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(4)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
                   4
                 </button>
-                <button className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(5)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
                   5
                 </button>
               </div>
@@ -252,7 +294,7 @@ const SingleLand = ({ params }: SingleLandProps) => {
                     </p>
 
                     <button
-                onClick={() => handleDeleteComment(comment.comment_id)}
+                onClick={() => handleDeleteComment(comment.comment_id.toString())}
                 className="m-1"
               >
                 <MdDeleteForever />
