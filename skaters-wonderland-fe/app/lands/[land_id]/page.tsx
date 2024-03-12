@@ -103,7 +103,12 @@ const SingleLand = ({ params }: SingleLandProps) => {
 
   const landSafetyHandler = async (SR_update: number) => {
     try {
-      setSafetyRated1(true);
+      setSafetyRated1(SR_update === 1);
+      setSafetyRated2(SR_update === 2);
+      setSafetyRated3(SR_update === 3);
+      setSafetyRated4(SR_update === 4);
+      setSafetyRated5(SR_update === 5);
+
       await patchLands(Number(params.land_id), {
         safety_rating_update: SR_update
       });
@@ -113,7 +118,7 @@ const SingleLand = ({ params }: SingleLandProps) => {
       setLand(land);
 
     } catch (error) {
-      console.error("Error voting:", error);
+      console.error("Error updating safety rating:", error);
     }
   };
 
@@ -173,6 +178,7 @@ const SingleLand = ({ params }: SingleLandProps) => {
             <h1 className="font-bold mb-4 sm:text-lg md:text-xl lg:text-2xl ">
               {land?land.landname:""}
             </h1>
+            <h3>suitability_rating_count : {land?land.safety_rating_count:""}</h3>
             <div className="">
               <span>{land?land.vote:""}</span>
               <button
