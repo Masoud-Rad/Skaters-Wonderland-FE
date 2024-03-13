@@ -4,9 +4,9 @@ import { FaCommentDots } from "react-icons/fa";
 import { BiSolidCommentAdd } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin5Line } from "react-icons/ri";
 import { patchLands, fetchLandById, addComment, deleteComment } from "@/utils";
-
-
 
 //**** landsType
 type SingleLandProps = {
@@ -58,7 +58,6 @@ const SingleLand = ({ params }: SingleLandProps) => {
   const [safetyRated3, setSafetyRated3] = useState(false);
   const [safetyRated4, setSafetyRated4] = useState(false);
   const [safetyRated5, setSafetyRated5] = useState(false);
-  
 
   const [suitabilityRated1, setSuitabilityRated1] = useState(false);
   const [suitabilityRated2, setSuitabilityRated2] = useState(false);
@@ -70,11 +69,8 @@ const SingleLand = ({ params }: SingleLandProps) => {
   const [adderCommentUsername, setAdderCommentUsername] = useState("");
   const [commentBody, setCommentBody] = useState("");
   const [showAddComment, setShowAddComment] = useState(false);
-  
-  
-  
-  useEffect(() => {
 
+  useEffect(() => {
     const fetchData = async () => {
       const res = await fetchLandById(params.land_id);
       const { land }: { land: LandSample } = res;
@@ -88,20 +84,18 @@ const SingleLand = ({ params }: SingleLandProps) => {
     };
 
     fetchData();
-  }, [params.land_id ]);
+  }, [params.land_id]);
 
   const voteHandler = async () => {
     try {
       setLiked(!liked);
       await patchLands(Number(params.land_id), {
         votes_update: liked ? -1 : 1,
-
       });
-    
-    const res = await fetchLandById(params.land_id);
+
+      const res = await fetchLandById(params.land_id);
       const { land }: { land: LandSample } = res;
       setLand(land);
-
     } catch (error) {
       console.error("Error voting:", error);
     }
@@ -116,19 +110,18 @@ const SingleLand = ({ params }: SingleLandProps) => {
       setSafetyRated5(SR_update === 5);
 
       await patchLands(Number(params.land_id), {
-        safety_rating_update: SR_update
+        safety_rating_update: SR_update,
       });
-    
-    const res = await fetchLandById(params.land_id);
+
+      const res = await fetchLandById(params.land_id);
       const { land }: { land: LandSample } = res;
       setLand(land);
-
     } catch (error) {
       console.error("Error updating safety rating:", error);
     }
   };
 
-  const landSuitabilityHandler = async (suitability_update : number)=>{
+  const landSuitabilityHandler = async (suitability_update: number) => {
     try {
       setSuitabilityRated1(suitability_update === 1);
       setSuitabilityRated2(suitability_update === 2);
@@ -137,23 +130,26 @@ const SingleLand = ({ params }: SingleLandProps) => {
       setSuitabilityRated5(suitability_update === 5);
 
       await patchLands(Number(params.land_id), {
-        suitability_rating_update: suitability_update
+        suitability_rating_update: suitability_update,
       });
-    
-    const res = await fetchLandById(params.land_id);
+
+      const res = await fetchLandById(params.land_id);
       const { land }: { land: LandSample } = res;
       setLand(land);
-
     } catch (error) {
       console.error("Error updating safety rating:", error);
     }
-  }
+  };
 
-  const handleAddCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddCommentSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     try {
-      const res = await addComment(params.land_id, {"body": commentBody, "username": adderCommentUsername})
-      
+      const res = await addComment(params.land_id, {
+        body: commentBody,
+        username: adderCommentUsername,
+      });
 
       const commentsRes = await fetch(
         `https://skaters-wonderland-be.onrender.com/api/lands/${params.land_id}/comments`
@@ -161,32 +157,27 @@ const SingleLand = ({ params }: SingleLandProps) => {
       const { comments }: CommentResult = await commentsRes.json();
       setComments(comments);
 
-      setShowAddComment(false)
-
+      setShowAddComment(false);
     } catch (error) {
       console.error("Error submitting form:", error);
-    
     }
   };
 
-  const handleDeleteComment = async (commentId: string)=>{
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      await deleteComment(commentId);
 
-    try{
-      await deleteComment(commentId)
-      
       const commentsRes = await fetch(
         `https://skaters-wonderland-be.onrender.com/api/lands/${params.land_id}/comments`
       );
       const { comments }: CommentResult = await commentsRes.json();
       setComments(comments);
 
-      setShowAddComment(false)
-
+      setShowAddComment(false);
     } catch (error) {
       console.error("Error submitting form:", error);
-    
     }
-  }
+  };
 
   return (
     <>
@@ -194,73 +185,88 @@ const SingleLand = ({ params }: SingleLandProps) => {
         <div className="mb-4">
           <img
             src={land && land.land_img_url ? land.land_img_url : ""}
-            alt={land?land.landname:""}
+            alt={land ? land.landname : ""}
             className="w-full h-64 object-cover rounded-md"
           />
         </div>
         <div className=" p-6 rounded-md shadow-md">
           <div className="flex justify-between items-center">
             <h1 className="font-bold mb-4 sm:text-lg md:text-xl lg:text-2xl ">
-              {land?land.landname:""}
+              {land ? land.landname : ""}
             </h1>
-            <h3>suitability_rating_count : {land?land.safety_rating_count:""}</h3>
+
             <div className="">
-              <span>{land?land.vote:""}</span>
+              <span>{land ? land.vote : ""}</span>
               <button
                 className={`btn p-0 m-3 hover:bg-blue-700 hover:text-white ${
                   liked ? "text-blue-500 bg-blue-300" : ""
                 }`}
                 onClick={voteHandler}
               >
-                <AiOutlineLike  size={20}/>
+                <AiOutlineLike size={20} />
               </button>
             </div>
           </div>
 
           <p className=" mb-4 sm:text-sm md:text-lg lg:text-xl">
-            {land?land.description:""}
+            {land ? land.description : ""}
           </p>
 
           <div className="mb-3">
             <p className="sm:text-sm md:text-md lg:text-lg">Location</p>
             <p>
-              {land?land.city:""}, {land?land.country:""}
+              {land ? land.city : ""}, {land ? land.country : ""}
             </p>
-            <p>{land?land.postcode:""}</p>
+            <p>{land ? land.postcode : ""}</p>
           </div>
-                
+
           <div className="grid grid-cols-2 gap-4">
             <div className=" border p-2 rounded-xl">
               <p className=" sm:text-xs md:text-sm lg:text-l">
-                Safety : {land?land.safety_rating_ave:""}{" "}
+                Safety : {land ? land.safety_rating_ave : ""}{" "}
               </p>
               <div className="border-t">
                 <p className=" sm:text-xs md:text-sm ">
                   How would you rate the safety of this place?{" "}
                 </p>
-                <button onClick={() => landSafetyHandler(1)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  safetyRated1 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSafetyHandler(1)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    safetyRated1 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   1
                 </button>
-                <button onClick={() => landSafetyHandler(2)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  safetyRated2 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSafetyHandler(2)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    safetyRated2 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   2
                 </button>
-                <button onClick={() => landSafetyHandler(3)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  safetyRated3 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSafetyHandler(3)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    safetyRated3 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   3
                 </button>
-                <button onClick={() => landSafetyHandler(4)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  safetyRated4 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSafetyHandler(4)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    safetyRated4 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   4
                 </button>
-                <button onClick={() => landSafetyHandler(5)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  safetyRated5 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSafetyHandler(5)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    safetyRated5 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   5
                 </button>
               </div>
@@ -268,39 +274,70 @@ const SingleLand = ({ params }: SingleLandProps) => {
 
             <div className=" border p-2 rounded-xl">
               <p className=" sm:text-xs md:text-sm lg:text-l">
-                Suitability : {land?land.suitability_rating_ave:""}{" "}
+                Suitability : {land ? land.suitability_rating_ave : ""}{" "}
               </p>
-              <div className="border-t ">  
+              <div className="border-t ">
                 <p className=" sm:text-xs md:text-sm">
                   How would you rate the suitability of this place?{" "}
                 </p>
-                <button onClick={() => landSuitabilityHandler(1)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  suitabilityRated1 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSuitabilityHandler(1)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    suitabilityRated1 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   1
                 </button>
-                <button onClick={() => landSuitabilityHandler(2)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  suitabilityRated2 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSuitabilityHandler(2)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    suitabilityRated2 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   2
                 </button>
-                <button onClick={() => landSuitabilityHandler(3)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  suitabilityRated3 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSuitabilityHandler(3)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    suitabilityRated3 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   3
                 </button>
-                <button onClick={() => landSuitabilityHandler(4)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  suitabilityRated4 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSuitabilityHandler(4)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    suitabilityRated4 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   4
                 </button>
-                <button onClick={() => landSuitabilityHandler(5)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
-                  suitabilityRated5 ? "text-blue-500 bg-blue-300" : ""
-                }`}>
+                <button
+                  onClick={() => landSuitabilityHandler(5)}
+                  className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                    suitabilityRated5 ? "text-blue-500 bg-blue-300" : ""
+                  }`}
+                >
                   5
                 </button>
               </div>
             </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <button
+              className={`btn p-0 m-3 border-cyan-700 hover:bg-blue-700 hover:text-white ${
+                liked ? "text-blue-500 bg-blue-300" : ""
+              }`}
+            >
+              <FaEdit size={20} />
+            </button>
+            <button
+              className={`btn p-0 m-3 border-cyan-700 hover:bg-blue-700 hover:text-white ${
+                liked ? "text-blue-500 bg-blue-300" : ""
+              }`}
+            >
+              <RiDeleteBin5Line size={20} />
+            </button>
           </div>
 
           <div className=" border p-2 rounded-xl mt-2">
@@ -309,37 +346,37 @@ const SingleLand = ({ params }: SingleLandProps) => {
             </div>
 
             <ul className="space-y-4">
-              {comments.map((comment) => (
-                <li key={comment.comment_id} className="border-b">
-                  <div className="flex items-center justify-between mb-1">
-
-                    <h3 className="text-sm text-gray-500">
-                      {comment.username}
-                    </h3>
-                    
-                    <p className="text-sm text-gray-500">
-                      {new Date(comment.created_at).toLocaleDateString(
-                        undefined,
-                        {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
+              {comments &&
+                comments.map((comment) => (
+                  <li key={comment.comment_id} className="border-b">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="text-sm text-gray-500">
+                        {comment.username}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        {new Date(comment.created_at).toLocaleDateString(
+                          undefined,
+                          {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          }
+                        )}
+                      </p>
+                      <button
+                        onClick={() =>
+                          handleDeleteComment(comment.comment_id.toString())
                         }
-                      )}
-                    </p>
-
-                    <button
-                onClick={() => handleDeleteComment(comment.comment_id.toString())}
-                className="m-1"
-              >
-                <MdDeleteForever />
-              </button>
-                    
-                  </div>
-                  <p className="text-sm">{comment.body}</p>
-                </li>
-              ))}
+                        className="m-1"
+                      >
+                        <MdDeleteForever />
+                      </button>
+                    </div>
+                    <p className="text-sm">{comment.body}</p>
+                  </li>
+                ))}
             </ul>
+
             {/* Add comment */}
             {showAddComment ? (
               <div className="container mx-auto mt-8">

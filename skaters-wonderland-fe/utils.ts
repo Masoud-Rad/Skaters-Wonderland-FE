@@ -54,10 +54,8 @@ interface CommentPostBody {
   }
 
 export const addNewLand = (postBody: LandPostBody)=>{
-console.log("in utils, postBody:", postBody)
     return  SwApi.post('/land', postBody)
       .then((response)=> {
-        console.log("in utils, postedLand:", response)
         return(response);
       })
       .catch((error) =>{
