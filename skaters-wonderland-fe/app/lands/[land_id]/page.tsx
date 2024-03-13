@@ -60,6 +60,12 @@ const SingleLand = ({ params }: SingleLandProps) => {
   const [safetyRated5, setSafetyRated5] = useState(false);
   
 
+  const [suitabilityRated1, setSuitabilityRated1] = useState(false);
+  const [suitabilityRated2, setSuitabilityRated2] = useState(false);
+  const [suitabilityRated3, setSuitabilityRated3] = useState(false);
+  const [suitabilityRated4, setSuitabilityRated4] = useState(false);
+  const [suitabilityRated5, setSuitabilityRated5] = useState(false);
+
   //add comment states
   const [adderCommentUsername, setAdderCommentUsername] = useState("");
   const [commentBody, setCommentBody] = useState("");
@@ -122,7 +128,26 @@ const SingleLand = ({ params }: SingleLandProps) => {
     }
   };
 
-  const landSuitabilityHandler = async (suitability_rating_update : number)=>{}
+  const landSuitabilityHandler = async (suitability_update : number)=>{
+    try {
+      setSuitabilityRated1(suitability_update === 1);
+      setSuitabilityRated2(suitability_update === 2);
+      setSuitabilityRated3(suitability_update === 3);
+      setSuitabilityRated4(suitability_update === 4);
+      setSuitabilityRated5(suitability_update === 5);
+
+      await patchLands(Number(params.land_id), {
+        suitability_rating_update: suitability_update
+      });
+    
+    const res = await fetchLandById(params.land_id);
+      const { land }: { land: LandSample } = res;
+      setLand(land);
+
+    } catch (error) {
+      console.error("Error updating safety rating:", error);
+    }
+  }
 
   const handleAddCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -249,19 +274,29 @@ const SingleLand = ({ params }: SingleLandProps) => {
                 <p className=" sm:text-xs md:text-sm">
                   How would you rate the suitability of this place?{" "}
                 </p>
-                <button onClick={() => landSuitabilityHandler(1)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(1)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  suitabilityRated1 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   1
                 </button>
-                <button onClick={() => landSuitabilityHandler(2)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(2)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  suitabilityRated2 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   2
                 </button>
-                <button onClick={() => landSuitabilityHandler(3)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(3)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  suitabilityRated3 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   3
                 </button>
-                <button onClick={() => landSuitabilityHandler(4)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(4)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  suitabilityRated4 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   4
                 </button>
-                <button onClick={() => landSuitabilityHandler(5)} className="btn p-1  m-1  hover:bg-blue-700 hover:text-white">
+                <button onClick={() => landSuitabilityHandler(5)} className={`btn p-1 m-1  hover:bg-blue-700 hover:text-white${
+                  suitabilityRated5 ? "text-blue-500 bg-blue-300" : ""
+                }`}>
                   5
                 </button>
               </div>
@@ -269,7 +304,7 @@ const SingleLand = ({ params }: SingleLandProps) => {
           </div>
 
           <div className=" border p-2 rounded-xl mt-2">
-            <div className="border-b ">
+            <div className="border-b">
               <FaCommentDots />
             </div>
 
