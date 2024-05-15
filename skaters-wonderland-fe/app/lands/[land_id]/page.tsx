@@ -4,8 +4,10 @@ import { FaCommentDots } from "react-icons/fa";
 import { BiSolidCommentAdd } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import { patchLands, fetchLandById, addComment, deleteComment } from "@/utils";
+//import DeleteLandButton from "@/components/DeleteLandButton"
+
+
 
 //**** landsType
 type SingleLandProps = {
@@ -48,6 +50,8 @@ interface CommentResult {
 }
 
 const SingleLand = ({ params }: SingleLandProps) => {
+
+
   const [land, setLand] = useState<LandSample | null>(null);
   const [comments, setComments] = useState<CommentSample[]>([]);
   const [liked, setLiked] = useState(false);
@@ -139,6 +143,8 @@ const SingleLand = ({ params }: SingleLandProps) => {
       console.error("Error updating safety rating:", error);
     }
   };
+  
+ 
 
   const handleAddCommentSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -205,13 +211,7 @@ const SingleLand = ({ params }: SingleLandProps) => {
               >
                 <AiOutlineLike size={20} />
               </button>
-              <button
-              className={`btn p-0 m-3 border-cyan-700 hover:bg-red-700 hover:text-white ${
-                liked ? "text-blue-500 bg-blue-300" : ""
-              }`}
-            >
-              <RiDeleteBin5Line size={20} />
-            </button>
+             {/* <DeleteLandButton landId={params.land_id} /> */}
             </div>
             
           </div>

@@ -77,6 +77,19 @@ export const addNewLand = (postBody: LandPostBody)=>{
  
   }
 
+  export const deleteLand = (landId: string)=>{
+
+    return  SwApi.delete(`/lands/${landId}`).then((res)=>{
+      
+    })
+    .catch((error) =>{
+      // handle error
+      console.log(error.response);
+    })
+
+  }
+
+
 
   //------------------------------------------comments----------------------------------
 
